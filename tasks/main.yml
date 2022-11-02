@@ -1,0 +1,13 @@
+---
+
+- name: Run Node Exporter Container
+  containers.podman.podman_container:
+    name: node-exporter
+    image: 'quay.io/prometheus/node-exporter:v{{ node_exporter_version }}'
+    network: host
+    ports:
+      - "9100:9100"
+    volumes:
+      - '/:/host:ro,rslave'
+    command:
+      - '--path.rootfs=/host'
